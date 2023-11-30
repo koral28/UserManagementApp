@@ -8,7 +8,7 @@ const Users = () => {
             try {
                 const response = await fetch('https://jsonplaceholder.org/users');
                 if (!response.ok) {
-                    throw new Error('Network response id not succeeded')
+                    throw new Error('Network response is not succeeded')
                 }
                 const data = await response.json();
                 setUsers(data)
