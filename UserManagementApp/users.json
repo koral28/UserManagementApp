@@ -9,15 +9,6 @@
     "UserName": "dvd"
   },
   {
-    "AboutMe": "",
-    "Email": "koral.levi22@gmail.com",
-    "FirstName": "Koral",
-    "LastName": "Levi",
-    "Phone": "+9722546353636",
-    "TimeZone": "europe/warsaw",
-    "UserName": "ss12"
-  },
-  {
     "AboutMe": "d",
     "Email": "hihi22@gmail.com",
     "FirstName": "Hila",
@@ -25,5 +16,14 @@
     "Phone": "+10546353636",
     "TimeZone": "europe/warsaw",
     "UserName": "jjm"
+  },
+  {
+    "AboutMe": "knk",
+    "Email": "sdsg@jj.com",
+    "FirstName": "Sarit",
+    "LastName": "David",
+    "Phone": "0546353636",
+    "TimeZone": "unitedStates/california",
+    "UserName": "sarru"
   }
 ]

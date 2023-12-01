@@ -5,16 +5,16 @@ using UserManagementApp.Models;
 
 namespace UserManagementApp.Service
 {
-    public class Manager : ControllerBase
+    public class Manager : IManager
     {
         readonly string filePath = Path.Combine(Directory.GetCurrentDirectory(), "users.json");
-        public IActionResult GetAllUsersFromDB()
+        public object GetAllUsersFromDB()
         {
             try
             {
                 if (!System.IO.File.Exists(filePath))
                 {
-                    return NotFound("Users data file not found");
+                    return "Users data file not found";
                 }
 
                 string jsonData = System.IO.File.ReadAllText(filePath);
@@ -22,15 +22,13 @@ namespace UserManagementApp.Service
                 if (deserialized is JObject)
                 {
                     var user = JsonConvert.DeserializeObject<UserModel>(jsonData);
-                    return Ok(user);
+                    return user;
                 }
                 else
                 {
                     var users = JsonConvert.DeserializeObject<List<UserModel>>(jsonData);
-                    return Ok(users);
+                    return users;
                 }
-
-
             }
             catch (Exception e)
             {
@@ -38,13 +36,13 @@ namespace UserManagementApp.Service
             }
         }
 
-        public IActionResult AddUserToDB([FromBody] UserModel newUser)
+        public object AddUserToDB([FromBody] UserModel newUser)
         {
             try
             {
                 if (newUser == null)
                 {
-                    return BadRequest("User data is null");
+                    return "User data is null";
                 }
 
                 string jsonData = JsonConvert.SerializeObject(newUser, Formatting.Indented);
@@ -53,7 +51,7 @@ namespace UserManagementApp.Service
                 userList.Add(newUser);
                 string updatedJsonData = JsonConvert.SerializeObject(userList, Formatting.Indented);
                 System.IO.File.WriteAllText(filePath, updatedJsonData);
-                return Ok(newUser);
+                return newUser;
             }
             catch (Exception e)
             {
@@ -61,7 +59,7 @@ namespace UserManagementApp.Service
             }
         }
 
-        public IActionResult DeleteUserFromDB([FromBody] string phoneNumber)
+        public object DeleteUserFromDB([FromBody] string phoneNumber)
         {
             try
             {
@@ -73,11 +71,11 @@ namespace UserManagementApp.Service
                     userList.Remove(userToRemove);
                     string updatedJsonData = JsonConvert.SerializeObject(userList, Formatting.Indented);
                     System.IO.File.WriteAllText(filePath, updatedJsonData);
-                    return Ok(phoneNumber);
+                    return userToRemove;
                 }
                 else
                 {
-                    return BadRequest($"User with phone {phoneNumber} not found.");
+                    return $"User with phone {phoneNumber} not found.";
                 }
             }
             catch (Exception e)

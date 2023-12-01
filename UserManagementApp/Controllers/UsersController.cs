@@ -18,21 +18,45 @@ namespace SupercomTestProject.Controllers
         [Route("getAllUsers")]
         public IActionResult GetAllUsersFromDB()
         {
-            return _manager.GetAllUsersFromDB();
+            object res = _manager.GetAllUsersFromDB();
+            if (res is string)
+            {
+                return NotFound(res);
+            }
+            else
+            {
+                return Ok(res);
+            }
         }
 
         [HttpPost]
         [Route("addNewUser")]
         public IActionResult AddUserToDB([FromBody] UserModel newUser)
         {
-            return _manager.AddUserToDB(newUser);
+            object res = _manager.AddUserToDB(newUser);
+            if (res is string)
+            {
+                return BadRequest(res);
+            }
+            else
+            {
+                return Ok(res);
+            }
         }
 
         [HttpDelete]
         [Route("deleteUser")]
         public IActionResult DeleteUserFromDB([FromBody] string phoneNumber)
         {
-            return _manager.DeleteUserFromDB(phoneNumber);
+            object res = _manager.DeleteUserFromDB(phoneNumber);
+            if (res is string)
+            {
+                return BadRequest(res);
+            }
+            else
+            {
+                return Ok(res);
+            }
         }
     }
 }
