@@ -12,7 +12,7 @@ namespace UserManagementApp.Models
 
         public void SendEmail() 
         {
-            Console.WriteLine($"{FirstName} is  is Sending an email to E1@example.com");
+            Console.WriteLine($"{FirstName} is Sending an email to E1@example.com");
         }
     }
 }

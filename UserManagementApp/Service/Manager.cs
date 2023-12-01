@@ -8,6 +8,7 @@ namespace UserManagementApp.Service
     public class Manager : IManager
     {
         readonly string filePath = Path.Combine(Directory.GetCurrentDirectory(), "users.json");
+        private List<UserModel> listOfUsers = new List<UserModel>();    
         public object GetAllUsersFromDB()
         {
             try
@@ -51,6 +52,7 @@ namespace UserManagementApp.Service
                 userList.Add(newUser);
                 string updatedJsonData = JsonConvert.SerializeObject(userList, Formatting.Indented);
                 System.IO.File.WriteAllText(filePath, updatedJsonData);
+                listOfUsers.Add(newUser);
                 return newUser;
             }
             catch (Exception e)
@@ -71,6 +73,7 @@ namespace UserManagementApp.Service
                     userList.Remove(userToRemove);
                     string updatedJsonData = JsonConvert.SerializeObject(userList, Formatting.Indented);
                     System.IO.File.WriteAllText(filePath, updatedJsonData);
+                    listOfUsers.Remove(userToRemove);
                     return userToRemove;
                 }
                 else

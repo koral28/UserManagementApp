@@ -8,8 +8,8 @@ namespace SupercomTestProject.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly Manager _manager;
-        public UsersController(Manager manager) 
+        private readonly IManager _manager;
+        public UsersController(IManager manager) 
         {
             _manager = manager;
         }
@@ -19,7 +19,7 @@ namespace SupercomTestProject.Controllers
         public IActionResult GetAllUsersFromDB()
         {
             object res = _manager.GetAllUsersFromDB();
-            if (res is string)
+            if (res is string || res is null)
             {
                 return NotFound(res);
             }
@@ -34,7 +34,7 @@ namespace SupercomTestProject.Controllers
         public IActionResult AddUserToDB([FromBody] UserModel newUser)
         {
             object res = _manager.AddUserToDB(newUser);
-            if (res is string)
+            if (res is string || res is null)
             {
                 return BadRequest(res);
             }
@@ -49,7 +49,7 @@ namespace SupercomTestProject.Controllers
         public IActionResult DeleteUserFromDB([FromBody] string phoneNumber)
         {
             object res = _manager.DeleteUserFromDB(phoneNumber);
-            if (res is string)
+            if (res is string || res is null)
             {
                 return BadRequest(res);
             }
