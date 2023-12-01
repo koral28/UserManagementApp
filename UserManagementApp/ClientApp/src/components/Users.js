@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { GetAllUsers } from "../Api/UsersApi";
 
 const Users = () => {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://jsonplaceholder.org/users');
-                if (!response.ok) {
-                    throw new Error('Network response is not succeeded')
-                }
-                const data = await response.json();
-                setUsers(data)
-
-            } catch (e) {
-                console.error('Fetch error:', e);
-            }
+        const fetchUsers = async () => {
+            const allUsers = await GetAllUsers();
+            setUsers(allUsers)
         }
-        fetchData()
+        fetchUsers()
     }, [])
 
     return (
@@ -32,15 +24,22 @@ const Users = () => {
                 </tr>
             </thead>
             <tbody>
-                {users.map((item, index) => (
+                {users.length > 1 ? users.map((item, index) => (
                     <tr key={index}>
-                        <td>{item.id}</td>
-                        <td>{item.firstname}</td>
-                        <td>{item.id}</td>
-                        <td>{item.firstname}</td>
-                        <td>{item.id}</td>
+                        <td>{item.firstName}</td>
+                        <td>{item.lastName}</td>
+                        <td>{item.userName}</td>
+                        <td>{item.email}</td>
+                        <td>{item.phone}</td>
                     </tr>
-                ))}
+                )) :
+                    <tr key={users.firstName}>
+                        <td>{users.firstName}</td>
+                        <td>{users.lastName}</td>
+                        <td>{users.userName}</td>
+                        <td>{users.email}</td>
+                        <td>{users.phone}</td>
+                    </tr>}
             </tbody>
         </table>
     )

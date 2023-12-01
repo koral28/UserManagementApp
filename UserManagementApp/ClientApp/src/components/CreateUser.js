@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { AddNewUser } from "../Api/UsersApi";
+import { useNavigate } from 'react-router-dom';
 
 const CreateUser = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -38,7 +41,8 @@ const CreateUser = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validation()) {
-            console.log(formData)
+            AddNewUser(formData)
+            navigate('/');
         }
     }
 

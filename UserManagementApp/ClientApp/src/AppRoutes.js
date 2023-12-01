@@ -1,5 +1,6 @@
 import CreateUser from "./components/CreateUser";
 import Users from "./components/Users";
+import DeleteUser from "./components/DeleteUser";
 
 const AppRoutes = [
     {
@@ -9,6 +10,10 @@ const AppRoutes = [
     {
         path: '/create-user',
         element: <CreateUser />
+    },
+    {
+        path: '/delete-user',
+        element: <DeleteUser />
     }
 ];
 
